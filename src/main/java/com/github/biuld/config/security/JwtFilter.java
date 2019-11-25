@@ -35,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = request.getHeader(Constants.TOKEN_KEY);
 
-        if (!StringUtils.isEmpty(token)) {
+        if (StringUtils.isEmpty(token)) {
             print(response, Result.error(Result.ErrCode.JWT_ERRCODE_NULL));
             return;
         }
