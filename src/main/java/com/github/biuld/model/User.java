@@ -17,7 +17,7 @@ public class User {
     @ApiModelProperty(hidden = true)
     private Integer id;
 
-    @Size(max = 15, message = "用户名不能超过25个字符")
+    @Size(max = 15, message = "用户名不能超过15个字符")
     @NotEmpty(message = "用户名不能为空")
     @ApiModelProperty(value = "用户名", required = true)
     private String username;

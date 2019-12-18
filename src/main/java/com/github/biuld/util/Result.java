@@ -21,6 +21,7 @@ public class Result<T> {
         USER_NOT_FOUND(4003, "Wrong username or password"),
         USER_EXISTS(4004, "Your username or e-mail address has been taken"),
         UPLOAD_ERROR(4005, "Upload error"),
+        KEY_DUPLICATED(4006, "存在同名"),
 
         VERIFIED_FAIlED(5000, "Verified failed, try later"),
         INPUT_ERROR(5001, "输入有误或权限不足"),

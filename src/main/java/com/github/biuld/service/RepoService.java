@@ -1,13 +1,16 @@
 package com.github.biuld.service;
 
+import com.github.biuld.config.exception.BusinessException;
 import com.github.biuld.mapper.RepoMapper;
 import com.github.biuld.model.Repo;
 import com.github.biuld.util.Page;
+import com.github.biuld.util.Result;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +22,15 @@ public class RepoService {
     private RepoMapper repoMapper;
 
     public int create(Repo repo) {
+
+        Repo tester =  new Repo();
+        tester.setRepoKey(repo.getRepoKey());
+
+        Optional.ofNullable(repoMapper.select(tester))
+                .ifPresent(test -> {
+                    throw new BusinessException(Result.ErrCode.KEY_DUPLICATED);
+                });
+
         return repoMapper.insertSelective(repo);
     }
 
@@ -35,7 +47,10 @@ public class RepoService {
 
         PageHelper.startPage(pageNum, pageSize);
 
-        List<Repo> result = repoMapper.selectAll();
+        Example example = new Example(Repo.class);
+        example.orderBy("likes").desc();
+
+        List<Repo> result = repoMapper.selectByExample(example);
 
         PageInfo<Repo> pageInfo = new PageInfo<>(result);
 

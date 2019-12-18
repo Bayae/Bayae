@@ -3,9 +3,11 @@ package com.github.biuld.model;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Data
 public class Repo {
@@ -14,11 +16,15 @@ public class Repo {
     @ApiModelProperty(hidden = true)
     private Integer id;
 
-    private String filename;
+    @Column(name = "repo_key")
+    @Size(max = 50, message = "库名不能超过50个字符")
+    private String repoKey;
 
-    private String marker;
+    @Column(name = "repo_desc")
+    private String repoDesc;
 
-    private String url;
+    @Column(name = "repo_value")
+    private String repoValue;
 
     @ApiModelProperty(hidden = true)
     private Integer likes;
