@@ -26,7 +26,7 @@ public class RepoService {
         Repo tester =  new Repo();
         tester.setRepoKey(repo.getRepoKey());
 
-        Optional.ofNullable(repoMapper.select(tester))
+        Optional.ofNullable(repoMapper.selectOne(tester))
                 .ifPresent(test -> {
                     throw new BusinessException(Result.ErrCode.KEY_DUPLICATED);
                 });
